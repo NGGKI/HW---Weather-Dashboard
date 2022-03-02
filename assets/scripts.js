@@ -127,6 +127,7 @@ function getCityLocation(cityName) {
 searchBtn.addEventListener("click", () => {
   var newInput = textInput.value;
   getCityLocation(newInput);
+  textInput.value = ""
 });
 
 //dash board time
