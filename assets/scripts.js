@@ -35,7 +35,7 @@ function renderListcity() {
 }
 
 function getCityLocation(cityName) {
-  //getting API
+  //getting API for forecast
   const apinameUrl = `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=b7b948a57862060a1beafe1ce924a6ac`;
 
   fetch(apinameUrl)
@@ -45,64 +45,80 @@ function getCityLocation(cityName) {
       if (data.cod === "404") {
         return alert("Location not found!");
       }
+      //adding new input into an array
       cities.push(cityName);
       localStorage.setItem("cities", JSON.stringify(cities));
       //show the keyword to listed history
       var retrieveInput = localStorage.getItem("cities");
       var readyOutput = JSON.parse(retrieveInput);
       renderCity(cityName);
-      console.log(data);
+      /*  console.log(data); */
 
-      let forecastText = ""
+      //filter forecast info and push to main html
+      let forecastText = "";
       data.list.forEach((item, index) => {
-        if (index == 0 || index == 8 || index == 16 || index == 24 || index == 32) {
-          const date = item.dt_txt.slice(0, 10)
+        if (
+          index == 0 ||
+          index == 8 ||
+          index == 16 ||
+          index == 24 ||
+          index == 32
+        ) {
+          const date = item.dt_txt.slice(0, 10);
+          var convertTemp1 = (item.main.temp - 273.15) * 1.8 + 3;
+          var readyTemp1 = convertTemp1.toString().slice(0, 5);
           const forecastBox = `<div id="box">
                 <h4 id="fDate">${date}</h4>
-                <li id="fTemp">Temp:${item.main.temp}</li>
-                <li id="fWind">Wind:${item.wind.speed}</li>
-                <li id="fHum">Humidity:${item.main.humidity}</li>
-              </div>`
-          return forecastText += forecastBox
+                <li id="fTemp">Temp:${readyTemp1}°F</li>
+                <li id="fWind">Wind:${item.wind.speed} MPH</li>
+                <li id="fHum">Humidity:${item.main.humidity} %</li>
+              </div>`;
+          return (forecastText += forecastBox);
         }
-      })
+      });
 
-      document.getElementById("boxes").innerHTML = forecastText
-      /* document.getElementById("header1").style.display = 'block' */
-      document.getElementById("header2").style.display = 'block'
+      document.getElementById("boxes").innerHTML = forecastText;
+      document.getElementById("header2").style.display = "block";
 
+      //getting lat and lon for UV index
       var lat = data.city.coord.lat;
       var lon = data.city.coord.lon;
-
+      //getting api for UV index
       const uvUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude={part}&appid=b7b948a57862060a1beafe1ce924a6ac`;
 
       fetch(uvUrl)
         .then((res) => res.json())
         .then((data1) => {
-          console.log(data1);
+          /* console.log(data1); */
 
-          let currentText = ""
-          var cUv = data1.current.uvi
+          let currentText = "";
+          var cUv = data1.current.uvi;
+          var convertTemp = (data1.current.temp - 273.15) * 1.8 + 3;
+          var readyTemp = convertTemp.toString().slice(0, 5);
+
+          //filter and push current weather into main html
           const currentBox = `<div id="today">
             <h1 id="header1">Today Weather</h1>
-            <li id="ctemp">Temperature:${data1.current.temp}</li>
-            <li id="chum">Humidity:${data1.current.humidity}</li>
-            <li id="cwind">Wind Speed:${data1.current.wind_speed}</li>
+            <li id="ctemp">Temperature:${readyTemp} °F</li>
+            <li id="chum">Humidity:${data1.current.humidity} %</li>
+            <li id="cwind">Wind Speed:${data1.current.wind_speed} MPH</li>
             <li id="cuv">UV Index: <span id="cuv-value">${cUv}</span></li>
-          </div>`
+          </div>`;
 
-          currentText += currentBox
+          currentText += currentBox;
 
-          document.getElementById("today").innerHTML = currentText
+          document.getElementById("today").innerHTML = currentText;
 
+          // create a condition of UV color
           if (cUv < 2) {
-            document.getElementById("cuv-value").style.backgroundColor = "green"
+            document.getElementById("cuv-value").style.backgroundColor =
+              "green";
           } else if (cUv >= 2 && cUv <= 3) {
-            document.getElementById("cuv-value").style.backgroundColor = "orange"
+            document.getElementById("cuv-value").style.backgroundColor =
+              "orange";
           } else {
-            document.getElementById("cuv-value").style.backgroundColor = "red"
+            document.getElementById("cuv-value").style.backgroundColor = "red";
           }
-
         });
     });
 }
