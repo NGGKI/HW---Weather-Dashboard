@@ -36,7 +36,7 @@ function renderListcity() {
 
 function getCityLocation(cityName) {
   //getting API for forecast
-  const apinameUrl = `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=b7b948a57862060a1beafe1ce924a6ac`;
+  const apinameUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=b7b948a57862060a1beafe1ce924a6ac`;
 
   fetch(apinameUrl)
     .then((res) => res.json())
