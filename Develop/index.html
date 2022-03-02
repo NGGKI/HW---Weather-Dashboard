@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./assets/style.css" />
+    <title>Weather Dashboard</title>
+  </head>
+  <body>
+    <header id="header">
+      <h1>Weather Dashboard</h1>
+      <p id="time"></p>
+    </header>
+    <div id="container">
+      <aside id="searchbox" class="col-lg-3 pb-3">
+        <h2>Search for a city</h2>
+        <input type="text" id="input" placeholder="Enter a city" />
+        <button id="searchbtn" style="background-color: lightblue">
+          Search
+        </button>
+        <div id="output"></div>
+      </aside>
+      <div id="displaybox" class="col-lg-9 pb-3">
+        <div id="viewbox">
+          <div id="today">
+            <!-- <h1 id="header1">Today Weather</h1>
+            <li id="ctemp">Temperature:</li>
+            <li id="chum">Humidity:</li>
+            <li id="cwind">Wind Speed:</li>
+            <li id="cuv">UV Index: <span id="cuv-value"></span></li> -->
+          </div>
+          <div id="forecast">
+            <h1 id="header2" style="display: none">Forecast in next 5 days</h1>
+            <div id="boxes"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="./assets/scripts.js"></script>
+  </body>
+</html>
