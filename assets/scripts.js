@@ -102,18 +102,6 @@ function getCityLocation(cityName) {
           } else {
             document.getElementById("cuv-value").style.backgroundColor = "red"
           }
-          /* var cTemp = data1.current.temp;
-          var cHum = data1.current.humidity;
-          var cWind = data1.current.wind_speed;
-          var cUv = data1.current.uvi;
-    
-          document.getElementById("ctemp").innerHTML =
-            "Temperature: " + cTemp + "°F";
-          document.getElementById("chum").innerHTML =
-            "Humidity: " + cHum + " MPH";
-          document.getElementById("cwind").innerHTML =
-            "Wind Speed: " + cWind + "%";
-          document.getElementById("cuv-value").innerHTML = cUv; */
 
         });
     });
