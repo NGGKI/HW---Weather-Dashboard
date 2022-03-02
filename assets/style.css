@@ -53,14 +53,13 @@ header {
   width: 1200px;
   padding: 0;
   margin-left: 10px;
-  border-left: 0.5px dotted black;
-
+  
 }
 
 #today {
   height: 21vh;
   margin: 10px;
-  border-bottom: 1px dotted black;
+ 
 }
 
 #boxes {
